@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\project_team;
+use App\Models\ProjectTeam;
 use Illuminate\Http\Request;
 
 class ProjectTeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Add a member to project
+    public function projectAddMember(Request $request)
     {
-        //
+        $user = ProjectTeam::create([
+            'project_id' => $request->project_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'success_msg' => 'Project_Member_Added',
+        ]);
     }
 
     /**

@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectTeamController;
+use App\Http\Controllers\TaskTeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +40,11 @@ Route::post('/milestone/create', [MilestoneController::class, 'milestoneCreate']
 // Task
 // Create a task
 Route::post('/task/create', [TaskController::class, 'taskCreate']);
+
+// project Team_member add
+// add a member
+Route::post('/project/addMember', [ProjectTeamController::class, 'projectAddMember']);
+
+// task Team_member add
+// add a member
+Route::post('/task/addMember', [TaskTeamController::class, 'taskAddMember']);

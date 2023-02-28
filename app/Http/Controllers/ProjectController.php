@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     // Create a new project
-    public function projectCreate()
+    public function projectCreate(Request $request)
     {
         $newProject = $request->validate([
             'project_name' => 'required|max:255',

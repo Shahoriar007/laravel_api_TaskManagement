@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 
 class TaskTeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Add member to task
+    public function taskAddMember(Request $request)
     {
-        //
+        $user = TaskTeam::create([
+            'task_id' => $request->task_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'success_msg' => 'Task_Member_Added',
+        ]);
     }
 
     /**

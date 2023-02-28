@@ -10,7 +10,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function taskCreate()
+    public function taskCreate(Request $request)
     {
         $newTask = $request->validate([
             'task_name' => 'required|max:255',
