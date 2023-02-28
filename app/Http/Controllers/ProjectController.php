@@ -7,12 +7,26 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Create a new project
+    public function projectCreate()
     {
-        //
+        $newProject = $request->validate([
+            'project_name' => 'required|max:255',
+        ]);
+
+        $user = Project::create([
+            'project_name' => $newProject['project_name'],
+            'project_description' => $request->project_description,
+            'project_start_date' => $request->project_start_date,
+            'project_end_date' => $request->project_end_date,
+            'project_budget' => $request->project_budget,
+            'project_priority' => $request->project_priority,
+            'project_manager' => $request->project_manager,
+        ]);
+
+        return response()->json([
+            'success_msg' => 'Project_saved',
+        ]);
     }
 
     /**

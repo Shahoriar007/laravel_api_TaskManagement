@@ -2,17 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\milestone;
+use App\Models\Milestone;
 use Illuminate\Http\Request;
 
 class MilestoneController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // Create Milestone
+    public function milestoneCreate(Request $request)
     {
-        //
+        $newMilestone = $request->validate([
+            'milestone_name' => 'required|max:255',
+        ]);
+
+        $user = Milestone::create([
+            'milestone_name' => $newMilestone['milestone_name'],
+            'milestone_description' => $request->milestone_description,
+            'milestone_start_date' => $request->milestone_start_date,
+            'milestone_end_date' => $request->milestone_end_date,
+            'milestone_budget' => $request->milestone_budget,
+            'milestone_percentage' => $request->milestone_percentage,
+            'milestone_priority' => $request->milestone_priority,
+            'milestone_status' => $request->milestone_status,
+            'project_id' => $request->project_id,
+        ]);
+
+        return response()->json([
+            'success_msg' => 'Milestone_saved',
+        ]);
     }
 
     /**

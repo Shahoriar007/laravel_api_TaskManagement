@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\task;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -10,9 +10,25 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function taskCreate()
     {
-        //
+        $newTask = $request->validate([
+            'task_name' => 'required|max:255',
+        ]);
+
+        $user = Milestone::create([
+            'task_name' => $newProject['task_name'],
+            'task_description' => $request->task_description,
+            'task_start_date' => $request->task_start_date,
+            'task_end_date' => $request->task_end_date,
+            'task_priority' => $request->task_priority,
+            'task_status' => $request->task_status,
+            'milestone_id' => $request->milestone_id,
+        ]);
+
+        return response()->json([
+            'success_msg' => 'Task_saved',
+        ]);
     }
 
     /**

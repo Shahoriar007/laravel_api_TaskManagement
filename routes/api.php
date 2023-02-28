@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\MilestoneController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +27,14 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
+// project
+// Create a project
+Route::post('/project/create', [ProjectController::class, 'projectCreate']);
+
+// Milestone
+// Create a milestone
+Route::post('/milestone/create', [MilestoneController::class, 'milestoneCreate']);
+
+// Task
+// Create a task
+Route::post('/task/create', [TaskController::class, 'taskCreate']);
