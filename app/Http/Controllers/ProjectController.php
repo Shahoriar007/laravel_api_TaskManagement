@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     // Create a new project
-    public function projectCreate(Request $request)
+    public function store(Request $request)
     {
         $newProject = $request->validate([
             'project_name' => 'required|max:255',
@@ -24,34 +24,28 @@ class ProjectController extends Controller
             'project_manager' => $request->project_manager,
         ]);
 
+        return response()->json(['success_msg' => 'Project_saved'], 200);
+    }
+
+    // Show all projects
+    public function show()
+    {
+        $projects = Project::all();
+        return response()->json(['projects'=>$projects], 200);
+    }
+
+    // Delete a project
+    public function destroy($project_id)
+    {
+        Project::where('project_id','=',$project_id)->delete();
+
         return response()->json([
-            'success_msg' => 'Project_saved',
+            'success_msg' => 'Project_deleted',
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Project $project)
-    {
-        //
-    }
+    
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -69,11 +63,5 @@ class ProjectController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Project $project)
-    {
-        //
-    }
+  
 }

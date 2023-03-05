@@ -31,7 +31,11 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 // project
 // Create a project
-Route::post('/project/create', [ProjectController::class, 'projectCreate']);
+Route::post('/project/create', [ProjectController::class, 'store']);
+// View all projects
+Route::get('/project/all', [ProjectController::class, 'show']);
+// Delete a project
+Route::post('/project/delete/{project_id}', [ProjectController::class, 'destroy']);
 
 // Milestone
 // Create a milestone
