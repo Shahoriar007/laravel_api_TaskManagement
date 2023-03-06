@@ -37,27 +37,34 @@ class TaskController extends Controller
         return response()->json(['tasks'=>$tasks]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(task $task)
+    // Update task
+    public function update(Request $request)
     {
-        //
+        $task = Task::where('id',$request->task_id)->firstOrFail();
+
+        $task->task_name = $request->has('task_name') ? $request->input('task_name') : $task->task_name;
+        $task->task_description = $request->has('task_description') ? $request->input('task_description') : $task->task_description;
+        $task->task_start_date = $request->has('task_start_date') ? $request->input('task_start_date') : $task->task_start_date;
+        $task->task_end_date = $request->has('task_end_date') ? $request->input('task_end_date') : $task->task_end_date;
+        $task->task_priority = $request->has('task_priority') ? $request->input('task_priority') : $task->task_priority;
+        $task->task_status = $request->has('task_status') ? $request->input('task_status') : $task->task_status;
+
+        $task->save();
+
+        return response()->json([
+            'success_msg' => 'Task_updated',
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, task $task)
-    {
-        //
-    }
+   
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(task $task)
+    // Task Delete
+    public function destroy(Request $request)
     {
-        //
+        Task::where('id','=',$request->task_id)->delete();
+
+        return response()->json([
+            'success_msg' => 'Task_deleted',
+        ]);
     }
 }
