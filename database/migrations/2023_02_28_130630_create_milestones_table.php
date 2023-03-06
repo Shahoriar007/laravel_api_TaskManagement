@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('milestone_status')->nullable();
 
             $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')->references('project_id')->on('projects')->onDelete('cascade');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
         });
     }

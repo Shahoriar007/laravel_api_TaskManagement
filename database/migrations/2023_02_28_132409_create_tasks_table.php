@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->id('task_id');
+            $table->id();
             $table->string('task_name');
             $table->string('task_description')->nullable();
             $table->string('task_start_date')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('task_status')->nullable();
 
             $table->unsignedBigInteger('milestone_id');
-            $table->foreign('milestone_id')->references('milestone_id')->on('milestones')->onDelete('cascade');
+            $table->foreign('milestone_id')->references('id')->on('milestones')->onDelete('cascade');
             $table->timestamps();
         });
     }

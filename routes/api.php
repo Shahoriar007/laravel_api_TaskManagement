@@ -52,8 +52,11 @@ Route::post('/milestone/delete', [MilestoneController::class, 'destroy']);
 
 
 // Task
+
 // Create a task
-Route::post('/task/create', [TaskController::class, 'taskCreate']);
+Route::post('/task/create', [TaskController::class, 'create']);
+// View all task
+Route::get('/task/all', [TaskController::class, 'show']);
 
 
 
