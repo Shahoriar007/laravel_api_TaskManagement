@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class MilestoneController extends Controller
 {
     // Create Milestone
-    public function milestoneCreate(Request $request)
+    public function create(Request $request)
     {
         $newMilestone = $request->validate([
             'milestone_name' => 'required|max:255',
@@ -31,44 +31,33 @@ class MilestoneController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    // Show Milestone
+    public function show()
     {
-        //
+        $milestones = Milestone::all();
+        return response()->json(['milestones'=>$milestones]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Update Milestone
+    public function update(Request $request)
     {
-        //
-    }
+        $milestone = Milestone::where('id',$request->milestone_id)->firstOrFail();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(milestone $milestone)
-    {
-        //
-    }
+        $milestone->milestone_name = $request->has('milestone_name') ? $request->input('milestone_name') : $milestone->milestone_name;
+        $milestone->milestone_description = $request->has('milestone_description') ? $request->input('milestone_description') : $milestone->milestone_description;
+        $milestone->milestone_start_date = $request->has('milestone_start_date') ? $request->input('milestone_start_date') : $milestone->milestone_start_date;
+        $milestone->milestone_end_date = $request->has('milestone_end_date') ? $request->input('milestone_end_date') : $milestone->milestone_end_date;
+        $milestone->milestone_budget = $request->has('milestone_budget') ? $request->input('milestone_budget') : $milestone->milestone_budget;
+        $milestone->milestone_percentage = $request->has('milestone_percentage') ? $request->input('milestone_percentage') : $milestone->milestone_percentage;
+        $milestone->milestone_priority = $request->has('milestone_priority') ? $request->input('milestone_priority') : $milestone->milestone_priority;
+        $milestone->milestone_status = $request->has('milestone_status') ? $request->input('milestone_status') : $milestone->milestone_status;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(milestone $milestone)
-    {
-        //
-    }
+        $milestone->save();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, milestone $milestone)
-    {
-        //
+        return response()->json([
+            'success_msg' => 'Milestone_updated',
+        ]);
     }
 
     /**

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('milestones', function (Blueprint $table) {
-            $table->id('milestone_id');
+            $table->id();
             $table->string('milestone_name');
             $table->string('milestone_description')->nullable();
             $table->string('milestone_start_date')->nullable();

@@ -10,16 +10,6 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectTeamController;
 use App\Http\Controllers\TaskTeamController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -30,24 +20,39 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
 // project
+
 // Create a project
 Route::post('/project/create', [ProjectController::class, 'store']);
 // View all projects
 Route::get('/project/all', [ProjectController::class, 'show']);
+// Update Project
+Route::post('/project/update', [ProjectController::class, 'update']);
 // Delete a project
-Route::post('/project/delete/{project_id}', [ProjectController::class, 'destroy']);
+Route::post('/project/delete', [ProjectController::class, 'destroy']);
+
+
+// project Team_member
+
+// Add a member
+Route::post('/project/addMember', [ProjectTeamController::class, 'projectAddMember']);
+// Delete project team_member
+Route::post('/project/deleteMember', [ProjectTeamController::class, 'projectDeleteMember']);
+
 
 // Milestone
+
 // Create a milestone
-Route::post('/milestone/create', [MilestoneController::class, 'milestoneCreate']);
+Route::post('/milestone/create', [MilestoneController::class, 'create']);
+// View all milestone
+Route::get('/milestone/all', [MilestoneController::class, 'show']);
+// Update milestone
+Route::post('/milestone/update', [MilestoneController::class, 'update']);
 
 // Task
 // Create a task
 Route::post('/task/create', [TaskController::class, 'taskCreate']);
 
-// project Team_member add
-// add a member
-Route::post('/project/addMember', [ProjectTeamController::class, 'projectAddMember']);
+
 
 // task Team_member add
 // add a member

@@ -12,6 +12,11 @@ class ProjectController extends Controller
     {
         $newProject = $request->validate([
             'project_name' => 'required|max:255',
+            'project_start_date' => 'max:255',
+            'project_end_date' => 'max:255',
+            'project_budget' => 'max:255',
+            'project_priority' => 'max:255',
+            'project_manager' => 'max:255',
         ]);
 
         $user = Project::create([
@@ -34,33 +39,35 @@ class ProjectController extends Controller
         return response()->json(['projects'=>$projects], 200);
     }
 
-    // Delete a project
-    public function destroy($project_id)
+    // Update a Project
+    public function update(Request $request)
     {
-        Project::where('project_id','=',$project_id)->delete();
+
+        $project = Project::where('id',$request->project_id)->firstOrFail();
+
+        $project->project_name = $request->has('project_name') ? $request->input('project_name') : $project->project_name;
+        $project->project_description = $request->has('project_description') ? $request->input('project_description') : $project->project_description;
+        $project->project_start_date = $request->has('project_start_date') ? $request->input('project_start_date') : $project->project_start_date;
+        $project->project_end_date = $request->has('project_end_date') ? $request->input('project_end_date') : $project->project_end_date;
+        $project->project_budget = $request->has('project_budget') ? $request->input('project_budget') : $project->project_budget;
+        $project->project_priority = $request->has('project_priority') ? $request->input('project_priority') : $project->project_priority;
+        $project->project_manager = $request->has('project_manager') ? $request->input('project_manager') : $project->project_manager;
+
+        $project->save();
+
+        return response()->json([
+            'success_msg' => 'Project_updated',
+        ]);
+    }
+
+    // Delete a project
+    public function destroy(Request $request)
+    {
+        Project::where('id','=',$request->project_id)->delete();
 
         return response()->json([
             'success_msg' => 'Project_deleted',
         ]);
-    }
-
-    
-    
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Project $project)
-    {
-        //
     }
 
   
