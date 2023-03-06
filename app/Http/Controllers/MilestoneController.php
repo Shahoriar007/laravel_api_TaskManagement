@@ -60,11 +60,13 @@ class MilestoneController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(milestone $milestone)
+    // Delete Milestone
+    public function destroy(Request $request)
     {
-        //
+        Milestone::where('id','=',$request->milestone_id)->delete();
+
+        return response()->json([
+            'success_msg' => 'Milestone_deleted',
+        ]);
     }
 }
