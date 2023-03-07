@@ -31,14 +31,17 @@ class TaskTeamController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Remove a member from the project
+    public function taskDeleteMember(Request $request)
     {
-        //
-    }
+        TaskTeam::where('task_id','=',$request->task_id)
+                ->where('user_id','=',$request->user_id)
+                ->delete();
 
+        return response()->json([
+            'success_msg' => 'Task_member_deleted',
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      */

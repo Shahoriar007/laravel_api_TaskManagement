@@ -62,8 +62,9 @@ Route::post('/task/update', [TaskController::class, 'update']);
 // Delete task
 Route::post('/task/delete', [TaskController::class, 'destroy']);
 
-
-
 // task Team_member add
+
 // add a member
 Route::post('/task/addMember', [TaskTeamController::class, 'taskAddMember']);
+// Remove a member
+Route::post('/task/deleteMember', [TaskTeamController::class, 'taskDeleteMember']);
